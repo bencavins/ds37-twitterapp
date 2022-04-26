@@ -53,5 +53,9 @@ def create_app():
         users = User.query.all()
         for user in users:
             add_or_update_user(user.username)
+        return render_template(
+            'base.html', 
+            title="All users have been updated to include their latest tweets."
+        )
     
     return app
