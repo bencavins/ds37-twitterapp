@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from .twitter import add_or_update_user
 from .models import DB, User, Tweet
 
 
@@ -33,12 +34,12 @@ def create_app():
     
     @app.route('/populate')
     def populate():
-        user1 = User(id=1, username='ben')
+        user1 = User(id=1, username='elonmusk')
         DB.session.add(user1)
-        user2 = User(id=2, username='adam')
+        user2 = User(id=2, username='nasa')
         DB.session.add(user2)
-        tweet1 = Tweet(id=1, text='this is my first tweet', user=user1)
-        DB.session.add(tweet1)
+        # tweet1 = Tweet(id=1, text='this is my first tweet', user=user1)
+        # DB.session.add(tweet1)
         DB.session.commit()
 
         return """The database has been reset
@@ -46,5 +47,11 @@ def create_app():
         <a href='/reset'>Go to reset</a>
         <a href='/populate'>Go to populate</a>
         """
+    
+    @app.route('/update')
+    def update():
+        users = User.query.all()
+        for user in users:
+            add_or_update_user(user.username)
     
     return app
