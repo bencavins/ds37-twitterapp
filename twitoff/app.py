@@ -1,4 +1,3 @@
-from turtle import title
 from flask import Flask, render_template, request
 from .twitter import add_or_update_user
 from .models import DB, User, Tweet
