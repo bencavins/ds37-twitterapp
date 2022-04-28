@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from .twitter import add_or_update_user
+from .twitter import add_or_update_user, vectorize_tweet
 from .models import DB, User, Tweet
 from .predict import predict_user
 
@@ -39,8 +39,10 @@ def create_app():
         DB.session.add(user1)
         user2 = User(id=2, username='nasa')
         DB.session.add(user2)
-        tweet1 = Tweet(id=1, text='this is my first tweet', user=user1)
-        tweet2 = Tweet(id=2, text='going to the moon!', user=user2)
+        tweet_text1 = 'this is my first tweet'
+        tweet_text2 = 'going to the moon!'
+        tweet1 = Tweet(id=1, text=tweet_text1, user=user1, vect=vectorize_tweet(tweet_text1))
+        tweet2 = Tweet(id=2, text=tweet_text2, user=user2, vect=vectorize_tweet(tweet_text2))
         DB.session.add(tweet1)
         DB.session.add(tweet2)
         DB.session.commit()
