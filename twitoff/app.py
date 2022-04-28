@@ -39,8 +39,10 @@ def create_app():
         DB.session.add(user1)
         user2 = User(id=2, username='nasa')
         DB.session.add(user2)
-        # tweet1 = Tweet(id=1, text='this is my first tweet', user=user1)
-        # DB.session.add(tweet1)
+        tweet1 = Tweet(id=1, text='this is my first tweet', user=user1)
+        tweet2 = Tweet(id=2, text='going to the moon!', user=user2)
+        DB.session.add(tweet1)
+        DB.session.add(tweet2)
         DB.session.commit()
 
         return """The database has been reset
